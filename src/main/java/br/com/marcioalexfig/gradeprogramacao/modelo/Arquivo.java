@@ -1,5 +1,10 @@
 package br.com.marcioalexfig.gradeprogramacao.modelo;
-
-public class Arquivo {
+/**
+ * POJO responsável por representar a estrutura de dados dos arquivos
+ * a serem manipulados.
+ * @author alex
+ *
+ */
+public abstract class Arquivo {
 
 }
