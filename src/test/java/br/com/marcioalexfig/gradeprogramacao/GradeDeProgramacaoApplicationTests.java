@@ -1,13 +1,25 @@
 package br.com.marcioalexfig.gradeprogramacao;
 
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
+/**
+ * Classe responsável pelos testes necessários ao funcionamento da aplicação
+ * @author alex
+ *
+ */
 class GradeDeProgramacaoApplicationTests {
 
+	/**
+	 * Carrega as variaveis do arquivo application.properties
+	 */
+	@Before
+	void carregarVariaveis() {
+		
+	} 
+	
 	@Test
-	void contextLoads() {
+	void verificaArquivos() {
+		
 	}
 
 }
