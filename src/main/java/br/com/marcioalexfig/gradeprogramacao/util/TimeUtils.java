@@ -1,11 +1,13 @@
 package br.com.marcioalexfig.gradeprogramacao.util;
 
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
+
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +28,11 @@ public class TimeUtils {
 		return Integer.valueOf(duracaoFormatada.substring(0, duracaoFormatada.indexOf('.')));
 	}
 
+	public static String dateToString(Date tempo) {
+		SimpleDateFormat f = new SimpleDateFormat("HH:mm");  
+		return f.format(tempo); 
+	}
+	
 	public static Date localTimeToDate(LocalTime local) {
 		Instant instant = local.atDate(LocalDate.now()).
 		        atZone(ZoneId.systemDefault()).toInstant();
@@ -43,5 +50,9 @@ public class TimeUtils {
 	
 	public static LocalTime questionTime(String linha) {
 		return LocalTime.parse(linha.substring(7,12));
+	}
+
+	public static boolean checkTime(Date questionTime, Date startTime, Date endTime) {
+		return ( ! questionTime.before( startTime ) ) && ( questionTime.before( endTime ) ) ; 
 	}
 }

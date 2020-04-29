@@ -5,11 +5,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,7 +103,12 @@ public class FileUtils {
 	 * @param nomeArquivo
 	 * @param pastaDestino
 	 */
-	public static void gravarArquivo(String nomeArquivo, String pastaDestino) {
+	public static void gravarArquivo(String nomeArquivo, String pastaDestino, List<String> conteudo) {
+		List<String> linhas = tratarResposta(conteudo);
+		
+		//TODO - implementar
+		
+		
 	    OutputStream out;
 	    try{
 	        File saida = new File(pastaDestino+"//"+nomeArquivo);
@@ -148,13 +157,12 @@ public class FileUtils {
 		Arquivo arquivo = new Arquivo();
 		arquivo.setType(linha.substring(0,1));
 		arquivo.setRegion(linha.substring(3,5));
-		arquivo.setStartTime(TimeUtils.localTimeToDate(TimeUtils.questionTime(linha)));
+		arquivo.setQuestionTime(TimeUtils.localTimeToDate(TimeUtils.questionTime(linha)));
 		return arquivo;
 	}
 	
-	private static Arquivo tratarResposta(String linha) {
-		Arquivo arquivo = new Arquivo();
+	private static List<String> tratarResposta(List<String> linhas) {
 		//TODO - implementar
-		return arquivo;
+		return null;
 	}
 }
