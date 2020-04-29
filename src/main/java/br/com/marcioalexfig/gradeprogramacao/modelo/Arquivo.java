@@ -12,6 +12,8 @@ public class Arquivo {
 	
 	private String type;
 	
+	private String region;
+	
 	private String title;
 	
 	private Integer duration;
@@ -19,6 +21,8 @@ public class Arquivo {
 	private Date startTime;
 	
 	private Date endTime;
+	
+	private Date questionTime;
 
 	public Arquivo() {}
 	
@@ -61,7 +65,21 @@ public class Arquivo {
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
-	
-	
 
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+	public Date getQuestionTime() {
+		return questionTime;
+	}
+
+	public void setQuestionTime(Date questionTime) {
+		this.questionTime = questionTime;
+	}
+	
 }

@@ -34,10 +34,14 @@ public class TimeUtils {
 	}
 	
 	public static LocalTime statTime(String linha) {
-		return LocalTime.parse(linha.substring(17, 25));
+		return LocalTime.parse(linha.substring(linha.lastIndexOf('"')+2, linha.lastIndexOf('"')+7));
 	}
 	
 	public static LocalTime endTime(String linha) {
-		return LocalTime.parse(linha.substring(40, 48));
+		return LocalTime.parse(linha.substring(linha.lastIndexOf('"')+8,linha.lastIndexOf('"')+13 ));
+	}
+	
+	public static LocalTime questionTime(String linha) {
+		return LocalTime.parse(linha.substring(7,12));
 	}
 }

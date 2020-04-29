@@ -77,16 +77,14 @@ public class FileUtils {
 	        BufferedReader lerArq = new BufferedReader(arq);
 	        String linha = lerArq.readLine();
 	        while (linha != null) {
-       	
+	        	Arquivo _arq = null;
 	        	/**identifica o tipo de linha e enviar para o metodo que trata do tipo de linha*/
 	        	if(linha.substring(0,1).equals(TipoEnum.CADASTRO.getDescricao())) {
-	        		System.out.println("CADASTRO");
+	        		_arq = tratarCadastro(linha);
 	        	} else if (linha.substring(0,1).equals(TipoEnum.PERGUNTA.getDescricao())) {
-	        		System.out.println("PERGUNTA");
+	        		_arq = tratarPergunta(linha);
 	        	}
-	        	
-	        	//TODO - adicionar o obj arquivo na lista de retorno
-
+	        	arquivos.add(_arq);
 	          linha = lerArq.readLine();
 	        }
 	        arq.close();
@@ -122,17 +120,39 @@ public class FileUtils {
 	    }
 	}
 	
-	private Arquivo tratarCadastro(String linha) {
+	/**
+	 *  - Cada registro é dado em uma única linha
+	 *	- Formato: `S <região> <nome do programa> <início> <fim>`
+	 *	- Exemplo, Bom Dia DF passa às 6 da manhã -> `S "DF" "Bom Dia DF" 06:00 07:30`
+	 * @param linha
+	 * @return
+	 */
+	private static Arquivo tratarCadastro(String linha) {
 		Arquivo arquivo = new Arquivo();
-		//TODO - implementar
+		arquivo.setType(linha.substring(0,1));
+		arquivo.setRegion(linha.substring(3,5));
+		arquivo.setTitle(linha.substring(8,linha.lastIndexOf('"')));
+		arquivo.setStartTime(TimeUtils.localTimeToDate(TimeUtils.statTime(linha)));
+		arquivo.setEndTime(TimeUtils.localTimeToDate(TimeUtils.endTime(linha)));
 		return arquivo;
 	}
-	private Arquivo tratarPergunta(String linha) {
+	
+	/**
+	 *	- Cada registro é dado em uma única linha
+	 *	- Formato: `Q <região> <hora>`
+	 *	- Exemplo: Qual programa passa no DF às 6 da manhã? -> `Q "DF" 06:00`
+	 * @param linha
+	 * @return
+	 */
+	private static Arquivo tratarPergunta(String linha) {
 		Arquivo arquivo = new Arquivo();
-		//TODO - implementar
+		arquivo.setType(linha.substring(0,1));
+		arquivo.setRegion(linha.substring(3,5));
+		arquivo.setStartTime(TimeUtils.localTimeToDate(TimeUtils.questionTime(linha)));
 		return arquivo;
 	}
-	private Arquivo tratarResposta(String linha) {
+	
+	private static Arquivo tratarResposta(String linha) {
 		Arquivo arquivo = new Arquivo();
 		//TODO - implementar
 		return arquivo;
