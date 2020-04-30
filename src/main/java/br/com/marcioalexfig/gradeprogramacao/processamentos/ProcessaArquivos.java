@@ -59,7 +59,7 @@ public class ProcessaArquivos {
 				String nome = fileTmp.getName();
 				String ext = null;
 				if(nome!=null)ext = nome.substring(nome.length()-3, nome.length());
-				/**limita a leitura a arquivos TXT*/
+				/**limita a leitura a arquivos com a EXTENSAO pré-definida, outros arquivos na pasta são ignorados*/
 				if(ext!=null && ext.toUpperCase().equals(EXTENSAO)) {
 					/**Ler arquivo de texto*/ 
 					List<Arquivo> listaArquivos = FileUtils.lerArquivo(nome, TXTORIGEM);
@@ -69,7 +69,7 @@ public class ProcessaArquivos {
 						FileUtils.gravarArquivo(TXTNOMESAIDA+"."+EXTENSAO, TXTPROCESSADO, listaResposta);
 					}
 					/**Mover arquivo texto para processados*/
-					////////FileUtils.moverArquivo(nome, TXTORIGEM, TXTPROCESSADO);
+					FileUtils.moverArquivo(nome, TXTORIGEM, TXTPROCESSADO);
 				}
 			}
 	    }
@@ -96,7 +96,6 @@ public class ProcessaArquivos {
 							&& arq.getEndTime()!=null
 							&& arq.getRegion().equals(pergunta.getRegion()) 
 							&& TimeUtils.checkTime(pergunta.getQuestionTime(), arq.getStartTime(), arq.getEndTime())) {
-						System.out.println("A "+pergunta.getRegion()+" "+TimeUtils.dateToString(pergunta.getQuestionTime()) +" "+arq.getTitle());
 						encontrou = true;
 						respostas.add("A "+pergunta.getRegion()+" "+TimeUtils.dateToString(pergunta.getQuestionTime()) +" "+arq.getTitle());
 					}

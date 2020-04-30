@@ -1,6 +1,7 @@
 package br.com.marcioalexfig.gradeprogramacao.util;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -9,11 +10,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JOptionPane;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,26 +102,24 @@ public class FileUtils {
 	 * @param pastaDestino
 	 */
 	public static void gravarArquivo(String nomeArquivo, String pastaDestino, List<String> conteudo) {
-		List<String> linhas = tratarResposta(conteudo);
-		
-		//TODO - implementar
-		
-		
+		String texto = tratarResposta(conteudo);
 	    OutputStream out;
 	    try{
 	        File saida = new File(pastaDestino+"//"+nomeArquivo);
+			BufferedWriter escrever = new BufferedWriter(new FileWriter(saida));
+			escrever.append(texto);
 	        if(!saida.exists()){
 	            if(!saida.getParentFile().exists()){
 	                saida.getParentFile().mkdir();
 	            }
 	            saida.createNewFile();
 	        }
-	        
 	        out = new FileOutputStream(saida);
 	        byte[] buffer = new byte[1024];
 	        int length = 0;
             out.write(buffer, 0 , length);
 	        out.close();
+	        escrever.close();
 	    }catch(IOException e){
 	    	logger.error(e.getLocalizedMessage());
 	    }
@@ -161,8 +157,11 @@ public class FileUtils {
 		return arquivo;
 	}
 	
-	private static List<String> tratarResposta(List<String> linhas) {
-		//TODO - implementar
-		return null;
+	private static String tratarResposta(List<String> linhas) {
+		StringBuilder texto = new StringBuilder();
+		for (String linha : linhas) {
+			texto.append(linha).append("\n");
+		}
+		return texto.toString();
 	}
 }
